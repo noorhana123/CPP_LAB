@@ -1,24 +1,90 @@
-#include <iostream>
-using namespace std;
-struct phone{
-int area,exchange,number;
-};
-int main(){
-struct phone p1,p2;
-p1.area = 212;
-p1.exchange = 767;
-p1.number = 89000;
+import java.io.*;
 
-cout << "Enter your Area_code \n";
-cin >> p2.area;
-cout << "Enter your exchange number \n";
-cin >> p2.exchange;
-cout << "Enter your Number \n";
-cin >> p2.number;
+class post_evln {
 
-//printing
+    private int max;
+   private int[] arr;
+   private int top;
 
-cout << "\nMy number is  " << "(" <<p1.area<< ")" <<   p1.exchange   <<   p1.number   ;
-cout << "\nYour number is " << "(" <<p2.area<< ")" <<   p2.exchange   <<   p2.number ;
+   private int a;
+   private int b;
+   private int r;
+   public post_evln(int s){
+       max=s;
+       arr= new int[max];
+       top=-1;
+   }
+
+
+public void push(int item) {
+    top++;
+    arr[top]=item;
+    //arr[++top]; 
+}
+
+public int pop() {
+    int item = arr[top];
+    top--;
+    return item;
+    //return arr[top--];
+}
+
+
+public void evaluvation(char x)
+{
+
+    if (x=='+'||x=='-'||x=='*'||x=='/'||x=='$')
+    {
+        a=pop();
+        b=pop();
+        
+        switch(x)
+        {
+            case '+': push(b+a);
+            break;
+            case '-': push(b-a);
+            break;
+            case  '*': push(b*a);
+            break;
+            case '/' : push(b/a);
+            break;
+            case '$' :push((int) Math. round(Math.pow(b, a)));
+            break;
+          
+        }
+    }
+    else
+    {
+        int a=Integer.parseInt(String.valueOf(x));
+        push(a);
+    }
 
 }
+
+    public static void main(String args[])throws IOException
+    {
+        String str;
+        int l,i,result;
+
+        InputStreamReader read=new InputStreamReader(System.in);
+        BufferedReader in=new BufferedReader(read);
+        System.out.println("Enter the Postfix String");
+
+
+       // x = Integer.parseInt(in.readLine());
+        str=in.readLine();
+        l = str.length();
+
+        post_evln obj = new post_evln(l);
+
+        for(i=0;i<l;i++)
+            obj.evaluvation(str.charAt(i));
+        
+        result = obj.pop();
+         
+        System.out.println(result);
+
+
+    }
+}
+
